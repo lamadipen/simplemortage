@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_mortgage/features/chatbot/mortgage_chatbot.dart';
 import 'package:simple_mortgage/features/home/widgets/contact_section.dart';
 import 'package:simple_mortgage/features/home/widgets/footer_section.dart';
 import 'package:simple_mortgage/features/home/widgets/hero_section.dart';
@@ -52,49 +53,54 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: MobileDrawer(items: _items, onQuote: () => _scrollTo(_quoteKey)),
-      body: Column(
+      body: Stack(
         children: [
-          AppNavbar(
-            items: _items,
-            onQuote: () => _scrollTo(_quoteKey),
-            onMenu: () => _scaffoldKey.currentState?.openDrawer(),
-          ),
-          Expanded(
-            child: SelectionArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Semantics(
-                      container: true,
-                      header: true,
-                      child: HeroSection(
-                        key: _homeKey,
-                        onCalculator: () => _scrollTo(_calculatorKey),
-                        onQuote: () => _scrollTo(_quoteKey),
-                      ),
+          Column(
+            children: [
+              AppNavbar(
+                items: _items,
+                onQuote: () => _scrollTo(_quoteKey),
+                onMenu: () => _scaffoldKey.currentState?.openDrawer(),
+              ),
+              Expanded(
+                child: SelectionArea(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Semantics(
+                          container: true,
+                          header: true,
+                          child: HeroSection(
+                            key: _homeKey,
+                            onCalculator: () => _scrollTo(_calculatorKey),
+                            onQuote: () => _scrollTo(_quoteKey),
+                          ),
+                        ),
+                        const TrustBar(),
+                        ServicesSection(
+                          key: _servicesKey,
+                          onTalkToOfficer: () => _scrollTo(_quoteKey),
+                        ),
+                        MortgageCalculatorSection(key: _calculatorKey),
+                        const WhyChooseUsSection(),
+                        TestimonialsSection(key: _reviewsKey),
+                        QuickQuoteSection(key: _quoteKey),
+                        ContactSection(key: _contactKey),
+                        FooterSection(
+                          onServices: () => _scrollTo(_servicesKey),
+                          onCalculator: () => _scrollTo(_calculatorKey),
+                          onReviews: () => _scrollTo(_reviewsKey),
+                          onTeam: () => Navigator.pushNamed(context, '/team'),
+                          onContact: () => _scrollTo(_contactKey),
+                        ),
+                      ],
                     ),
-                    const TrustBar(),
-                    ServicesSection(
-                      key: _servicesKey,
-                      onTalkToOfficer: () => _scrollTo(_quoteKey),
-                    ),
-                    MortgageCalculatorSection(key: _calculatorKey),
-                    const WhyChooseUsSection(),
-                    TestimonialsSection(key: _reviewsKey),
-                    QuickQuoteSection(key: _quoteKey),
-                    ContactSection(key: _contactKey),
-                    FooterSection(
-                      onServices: () => _scrollTo(_servicesKey),
-                      onCalculator: () => _scrollTo(_calculatorKey),
-                      onReviews: () => _scrollTo(_reviewsKey),
-                      onTeam: () => Navigator.pushNamed(context, '/team'),
-                      onContact: () => _scrollTo(_contactKey),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
+          const MortgageChatbot(),
         ],
       ),
     );
