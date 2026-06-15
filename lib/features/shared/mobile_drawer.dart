@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_mortgage/core/constants/app_constants.dart';
 import 'package:simple_mortgage/core/theme/app_colors.dart';
 import 'package:simple_mortgage/features/shared/app_navbar.dart';
+import 'package:simple_mortgage/features/shared/brand_logo.dart';
 import 'package:simple_mortgage/features/shared/link_utils.dart';
 import 'package:simple_mortgage/features/shared/primary_button.dart';
 
@@ -23,14 +24,10 @@ class MobileDrawer extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
-                    child: Text(
-                      'Simple Mortgage LLC',
-                      style: TextStyle(
-                        color: AppColors.navyDark,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: BrandLogo(compact: true),
                     ),
                   ),
                   IconButton(

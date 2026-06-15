@@ -84,7 +84,7 @@ class _TrustItem extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.09),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(item.$1, color: AppColors.gold, size: 21),
+            child: Icon(item.$1, color: AppColors.red, size: 21),
           ),
           const SizedBox(width: 12),
           Expanded(

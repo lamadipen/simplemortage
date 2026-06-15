@@ -102,10 +102,10 @@ class _WhyCard extends StatelessWidget {
                 width: 43,
                 height: 43,
                 decoration: BoxDecoration(
-                  color: AppColors.gold.withValues(alpha: 0.14),
+                  color: AppColors.red.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(item.$1, color: AppColors.gold, size: 21),
+                child: Icon(item.$1, color: AppColors.red, size: 21),
               ),
               Text(
                 number.toString().padLeft(2, '0'),

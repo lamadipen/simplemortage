@@ -4,7 +4,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F7F9F8",
-  "theme_color": "#102A43",
+  "theme_color": "#27598E",
   "description": "Simple, prompt, and transparent mortgage guidance.",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,

@@ -31,15 +31,15 @@ class _PrimaryButtonState extends State<PrimaryButton> {
     final isPrimary = widget.style == ButtonStyleType.primary;
     final isLight = widget.style == ButtonStyleType.light;
     final background = isPrimary
-        ? (_hovered ? AppColors.blue : AppColors.navy)
+        ? (_hovered ? AppColors.redDark : AppColors.red)
         : isLight
         ? AppColors.white
-        : (_hovered ? AppColors.blueLight : Colors.transparent);
+        : (_hovered ? AppColors.redLight : Colors.transparent);
     final foreground = isPrimary
         ? AppColors.white
         : isLight
         ? AppColors.navy
-        : AppColors.navy;
+        : AppColors.red;
     final button = MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
@@ -56,10 +56,10 @@ class _PrimaryButtonState extends State<PrimaryButton> {
             backgroundColor: background,
             foregroundColor: foreground,
             elevation: isPrimary && _hovered ? 4 : 0,
-            shadowColor: AppColors.navy.withValues(alpha: 0.2),
+            shadowColor: AppColors.red.withValues(alpha: 0.22),
             side: isPrimary || isLight
                 ? BorderSide.none
-                : const BorderSide(color: AppColors.navy),
+                : const BorderSide(color: AppColors.red),
             padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 18),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),

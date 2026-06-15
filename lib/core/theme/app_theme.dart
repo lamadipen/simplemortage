@@ -7,7 +7,7 @@ abstract final class AppTheme {
       seedColor: AppColors.blue,
       brightness: Brightness.light,
       primary: AppColors.navy,
-      secondary: AppColors.gold,
+      secondary: AppColors.red,
       surface: AppColors.white,
     );
 

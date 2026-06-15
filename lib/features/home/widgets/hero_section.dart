@@ -26,18 +26,18 @@ class HeroSection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
-            color: AppColors.greenLight,
+            color: AppColors.redLight,
             borderRadius: BorderRadius.circular(100),
           ),
           child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.verified_rounded, color: AppColors.green, size: 17),
+              Icon(Icons.verified_rounded, color: AppColors.red, size: 17),
               SizedBox(width: 7),
               Text(
                 'LOCAL GUIDANCE. CLEAR ANSWERS.',
                 style: TextStyle(
-                  color: AppColors.green,
+                  color: AppColors.red,
                   fontSize: 11,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1,
@@ -176,7 +176,7 @@ class _LoanVisual extends StatelessWidget {
                   width: 220,
                   height: 220,
                   decoration: BoxDecoration(
-                    color: AppColors.gold.withValues(alpha: 0.14),
+                    color: AppColors.red.withValues(alpha: 0.14),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -219,11 +219,11 @@ class _LoanVisual extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
             decoration: BoxDecoration(
-              color: AppColors.green,
+              color: AppColors.red,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.green.withValues(alpha: 0.24),
+                  color: AppColors.red.withValues(alpha: 0.24),
                   blurRadius: 20,
                   offset: const Offset(0, 8),
                 ),
@@ -304,7 +304,7 @@ class _HouseIllustration extends StatelessWidget {
                       width: 55,
                       height: 76,
                       decoration: const BoxDecoration(
-                        color: AppColors.gold,
+                        color: AppColors.red,
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(28),
                         ),

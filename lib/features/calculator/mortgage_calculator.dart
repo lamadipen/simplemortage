@@ -298,7 +298,7 @@ class _ResultCard extends StatelessWidget {
         children: [
           const Row(
             children: [
-              Icon(Icons.calculate_outlined, color: AppColors.gold),
+              Icon(Icons.calculate_outlined, color: AppColors.red),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -367,7 +367,7 @@ class _ResultCard extends StatelessWidget {
                 child: Text(
                   'Loan amount',
                   style: TextStyle(
-                    color: AppColors.gold,
+                    color: AppColors.red,
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                   ),
@@ -376,7 +376,7 @@ class _ResultCard extends StatelessWidget {
               Text(
                 formatCurrency(calculation.loanAmount),
                 style: const TextStyle(
-                  color: AppColors.gold,
+                  color: AppColors.red,
                   fontSize: 13,
                   fontWeight: FontWeight.w800,
                 ),

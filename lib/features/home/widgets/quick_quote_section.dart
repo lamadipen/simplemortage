@@ -117,7 +117,7 @@ class _QuickQuoteSectionState extends State<QuickQuoteSection> {
         content: Text(
           'Thanks! Your quote request has been received. We’ll be in touch soon.',
         ),
-        backgroundColor: AppColors.green,
+        backgroundColor: AppColors.blue,
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -374,7 +374,7 @@ class _IntroPoint extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 15),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: AppColors.green),
+          Icon(icon, size: 20, color: AppColors.red),
           const SizedBox(width: 12),
           Expanded(
             child: Text(

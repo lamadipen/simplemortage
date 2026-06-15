@@ -89,7 +89,7 @@ class _ReviewCard extends StatelessWidget {
           Row(
             children: [
               for (var i = 0; i < 5; i++)
-                const Icon(Icons.star_rounded, color: AppColors.gold, size: 19),
+                const Icon(Icons.star_rounded, color: AppColors.red, size: 19),
             ],
           ),
           const SizedBox(height: 22),

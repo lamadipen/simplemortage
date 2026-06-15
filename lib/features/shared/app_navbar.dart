@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_mortgage/core/constants/app_constants.dart';
 import 'package:simple_mortgage/core/theme/app_colors.dart';
+import 'package:simple_mortgage/features/shared/brand_logo.dart';
 import 'package:simple_mortgage/features/shared/link_utils.dart';
 import 'package:simple_mortgage/features/shared/primary_button.dart';
 import 'package:simple_mortgage/features/shared/responsive_layout.dart';
@@ -85,51 +86,7 @@ class _BrandMark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 42,
-          height: 42,
-          decoration: BoxDecoration(
-            color: AppColors.navy,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Icon(
-            Icons.roofing_rounded,
-            color: AppColors.gold,
-            size: 25,
-          ),
-        ),
-        const SizedBox(width: 11),
-        const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'SIMPLE',
-              style: TextStyle(
-                color: AppColors.navyDark,
-                fontWeight: FontWeight.w900,
-                fontSize: 16,
-                letterSpacing: 2.1,
-                height: 1.05,
-              ),
-            ),
-            Text(
-              'MORTGAGE LLC',
-              style: TextStyle(
-                color: AppColors.muted,
-                fontWeight: FontWeight.w700,
-                fontSize: 9,
-                letterSpacing: 1.45,
-                height: 1.5,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+    return const BrandLogo(compact: true);
   }
 }
 

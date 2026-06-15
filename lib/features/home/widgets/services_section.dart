@@ -131,13 +131,13 @@ class _ServiceCardState extends State<_ServiceCard> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.goldLight,
+                    color: AppColors.redLight,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Text(
                     widget.service.$4,
                     style: const TextStyle(
-                      color: Color(0xFF8A5D13),
+                      color: AppColors.redDark,
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
                     ),

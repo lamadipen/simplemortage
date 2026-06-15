@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_mortgage/core/constants/app_constants.dart';
 import 'package:simple_mortgage/core/theme/app_colors.dart';
+import 'package:simple_mortgage/features/shared/brand_logo.dart';
 import 'package:simple_mortgage/features/shared/link_utils.dart';
 import 'package:simple_mortgage/features/shared/section_container.dart';
 
@@ -143,19 +144,19 @@ class _CompanyColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'SIMPLE MORTGAGE LLC',
-          style: TextStyle(
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
             color: AppColors.white,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 1.4,
+            borderRadius: BorderRadius.circular(12),
           ),
+          child: const BrandLogo(),
         ),
-        SizedBox(height: 17),
-        Text(
+        const SizedBox(height: 17),
+        const Text(
           'Simple, prompt, and transparent mortgage guidance for homebuyers '
           'and homeowners in Virginia and beyond.',
           style: TextStyle(
@@ -250,7 +251,7 @@ class _FooterTitle extends StatelessWidget {
     return Text(
       text.toUpperCase(),
       style: const TextStyle(
-        color: AppColors.gold,
+        color: AppColors.red,
         fontSize: 11,
         fontWeight: FontWeight.w800,
         letterSpacing: 1.2,

@@ -137,7 +137,7 @@ class _MapCard extends StatelessWidget {
     return Container(
       height: 430,
       decoration: BoxDecoration(
-        color: const Color(0xFFE8EDE8),
+        color: AppColors.blueLight,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: AppColors.line),
       ),
@@ -162,7 +162,7 @@ class _MapCard extends StatelessWidget {
               ),
               child: const Icon(
                 Icons.location_on_rounded,
-                color: AppColors.gold,
+                color: AppColors.red,
                 size: 30,
               ),
             ),
@@ -230,13 +230,13 @@ class _MapPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final minor = Paint()
-      ..color = const Color(0xFFD2DDD5)
+      ..color = const Color(0xFFC7D8E8)
       ..strokeWidth = 2;
     final road = Paint()
       ..color = Colors.white.withValues(alpha: 0.9)
       ..strokeWidth = 12
       ..style = PaintingStyle.stroke;
-    final blocks = Paint()..color = const Color(0xFFDAE4DC);
+    final blocks = Paint()..color = const Color(0xFFDDE9F4);
 
     for (var x = -30.0; x < size.width; x += 78) {
       canvas.drawRect(Rect.fromLTWH(x, 0, 50, size.height), blocks);

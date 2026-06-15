@@ -72,7 +72,7 @@ class SectionHeading extends StatelessWidget {
             Text(
               eyebrow.toUpperCase(),
               style: AppTextStyles.label.copyWith(
-                color: light ? const Color(0xFFD49A31) : null,
+                color: light ? const Color(0xFFE98B8D) : null,
               ),
             ),
             const SizedBox(height: 14),
