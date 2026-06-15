@@ -41,7 +41,7 @@ class AppNavbar extends StatelessWidget {
         ),
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1280),
+            constraints: const BoxConstraints(maxWidth: 1344),
             child: Row(
               children: [
                 const _BrandMark(),
@@ -112,7 +112,7 @@ class _NavLinkState extends State<_NavLink> {
         onPressed: widget.onTap,
         style: TextButton.styleFrom(
           foregroundColor: hovered ? AppColors.blue : AppColors.navy,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
           textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
         ),
         child: Text(widget.label),

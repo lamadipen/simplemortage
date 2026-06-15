@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
     NavItem('Services', () => _scrollTo(_servicesKey)),
     NavItem('Calculator', () => _scrollTo(_calculatorKey)),
     NavItem('Reviews', () => _scrollTo(_reviewsKey)),
+    NavItem('Team', () => Navigator.pushNamed(context, '/team')),
     NavItem('Contact', () => _scrollTo(_contactKey)),
   ];
 
@@ -86,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                       onServices: () => _scrollTo(_servicesKey),
                       onCalculator: () => _scrollTo(_calculatorKey),
                       onReviews: () => _scrollTo(_reviewsKey),
+                      onTeam: () => Navigator.pushNamed(context, '/team'),
                       onContact: () => _scrollTo(_contactKey),
                     ),
                   ],

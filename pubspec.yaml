@@ -62,6 +62,7 @@ flutter:
   assets:
     - assets/branding/simple_mortgage_logo.png
     - assets/branding/homebuyer-hero.jpg
+    - assets/team/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

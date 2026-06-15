@@ -10,6 +10,7 @@ class FooterSection extends StatelessWidget {
     required this.onServices,
     required this.onCalculator,
     required this.onReviews,
+    required this.onTeam,
     required this.onContact,
     super.key,
   });
@@ -17,6 +18,7 @@ class FooterSection extends StatelessWidget {
   final VoidCallback onServices;
   final VoidCallback onCalculator;
   final VoidCallback onReviews;
+  final VoidCallback onTeam;
   final VoidCallback onContact;
 
   @override
@@ -36,6 +38,7 @@ class FooterSection extends StatelessWidget {
       _LinkColumn(
         title: 'Quick links',
         links: [
+          ('Meet Our Team', onTeam),
           ('Client Reviews', onReviews),
           ('Contact Us', onContact),
           ('Apply Now', () => openLink(AppConstants.applyUrl)),
