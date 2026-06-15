@@ -16,8 +16,8 @@ class MortgageCalculatorSection extends StatelessWidget {
             eyebrow: 'Plan with confidence',
             title: 'Estimate your monthly payment',
             description:
-                'Explore how your price, down payment, rate, and other costs '
-                'come together in one clear monthly estimate.',
+                'Change any number and see the impact immediately. Your full '
+                'estimated payment stays visible with a clear cost breakdown.',
           ),
           SizedBox(height: 44),
           MortgageCalculator(),

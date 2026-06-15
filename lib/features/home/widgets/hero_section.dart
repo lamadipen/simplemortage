@@ -51,10 +51,11 @@ class HeroSection extends StatelessWidget {
           'Simple Mortgage Solutions for Your Dream Home',
           style: AppTextStyles.display.copyWith(
             fontSize: mobile
-                ? 42
+                ? 43
                 : desktop
-                ? 62
+                ? 64
                 : 52,
+            height: 0.98,
           ),
         ),
         const SizedBox(height: 22),
@@ -162,26 +163,42 @@ class _LoanVisual extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          height: 430,
+          height: 500,
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            color: AppColors.blueLight,
             borderRadius: BorderRadius.circular(32),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.navy.withValues(alpha: 0.16),
+                blurRadius: 34,
+                offset: const Offset(0, 18),
+              ),
+            ],
           ),
           child: Stack(
+            fit: StackFit.expand,
             children: [
-              Positioned(
-                top: -70,
-                right: -40,
-                child: Container(
-                  width: 220,
-                  height: 220,
-                  decoration: BoxDecoration(
-                    color: AppColors.red.withValues(alpha: 0.14),
-                    shape: BoxShape.circle,
+              Image.asset(
+                'assets/branding/homebuyer-hero.jpg',
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                filterQuality: FilterQuality.medium,
+              ),
+              const DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Color(0x17000000),
+                      Color(0x8A173A61),
+                    ],
+                    stops: [0.35, 0.65, 1],
                   ),
                 ),
               ),
-              const Positioned.fill(child: _HouseIllustration()),
+              const Positioned(left: 24, top: 24, child: _PhotoLabel()),
             ],
           ),
         ),
@@ -214,8 +231,8 @@ class _LoanVisual extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: -10,
-          top: 32,
+          right: -8,
+          top: 36,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
             decoration: BoxDecoration(
@@ -235,7 +252,7 @@ class _LoanVisual extends StatelessWidget {
                 Icon(Icons.check_circle, color: Colors.white, size: 17),
                 SizedBox(width: 7),
                 Text(
-                  'A simpler path home',
+                  'Local mortgage guidance',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
@@ -251,88 +268,32 @@ class _LoanVisual extends StatelessWidget {
   }
 }
 
-class _HouseIllustration extends StatelessWidget {
-  const _HouseIllustration();
+class _PhotoLabel extends StatelessWidget {
+  const _PhotoLabel();
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 62),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: 245,
-              height: 180,
-              margin: const EdgeInsets.only(top: 80),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.navy.withValues(alpha: 0.09),
-                    blurRadius: 22,
-                    offset: const Offset(0, 12),
-                  ),
-                ],
-              ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+      decoration: BoxDecoration(
+        color: AppColors.white.withValues(alpha: 0.94),
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.key_rounded, color: AppColors.red, size: 16),
+          SizedBox(width: 7),
+          Text(
+            'YOUR NEXT CHAPTER',
+            style: TextStyle(
+              color: AppColors.navyDark,
+              fontSize: 10,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.8,
             ),
-            Transform.rotate(
-              angle: 0.785398,
-              child: Container(
-                width: 174,
-                height: 174,
-                margin: const EdgeInsets.only(bottom: 67),
-                decoration: BoxDecoration(
-                  color: AppColors.navy,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 113,
-              child: Container(
-                width: 210,
-                height: 132,
-                color: AppColors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      width: 55,
-                      height: 76,
-                      decoration: const BoxDecoration(
-                        color: AppColors.red,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(28),
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(top: 22),
-                        child: Icon(
-                          Icons.lock_open_rounded,
-                          color: AppColors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 60,
-                      height: 55,
-                      margin: const EdgeInsets.only(bottom: 30),
-                      decoration: BoxDecoration(
-                        color: AppColors.blueLight,
-                        border: Border.all(color: AppColors.blue, width: 5),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

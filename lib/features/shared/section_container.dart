@@ -80,8 +80,9 @@ class SectionHeading extends StatelessWidget {
               title,
               textAlign: textAlign,
               style: AppTextStyles.sectionTitle.copyWith(
-                fontSize: compact ? 32 : null,
+                fontSize: compact ? 34 : null,
                 color: light ? Colors.white : null,
+                height: 1.06,
               ),
             ),
             const SizedBox(height: 16),

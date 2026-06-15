@@ -328,8 +328,10 @@ class _ResultCard extends StatelessWidget {
             'per month',
             style: TextStyle(color: Color(0xFFB8CBD8), fontSize: 13),
           ),
+          const SizedBox(height: 24),
+          _PaymentComposition(calculation: calculation),
           const Padding(
-            padding: EdgeInsets.symmetric(vertical: 23),
+            padding: EdgeInsets.symmetric(vertical: 22),
             child: Divider(color: Color(0xFF355168), height: 1),
           ),
           for (final row in rows)
@@ -385,6 +387,80 @@ class _ResultCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _PaymentComposition extends StatelessWidget {
+  const _PaymentComposition({required this.calculation});
+
+  final MortgageCalculation calculation;
+
+  @override
+  Widget build(BuildContext context) {
+    final total = calculation.totalMonthlyPayment;
+    final values = [
+      calculation.principalAndInterest,
+      calculation.monthlyTaxes + calculation.monthlyInsurance,
+      calculation.pmi + calculation.hoa,
+    ];
+    const colors = [AppColors.red, Color(0xFF6EA1D2), Color(0xFFD6E4F1)];
+    const labels = ['P&I', 'Tax + insurance', 'PMI + HOA'];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: SizedBox(
+            height: 10,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Row(
+                  children: [
+                    for (var index = 0; index < values.length; index++)
+                      Container(
+                        width: total <= 0
+                            ? constraints.maxWidth / values.length
+                            : constraints.maxWidth * values[index] / total,
+                        color: colors[index],
+                      ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 14,
+          runSpacing: 7,
+          children: [
+            for (var index = 0; index < labels.length; index++)
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 7,
+                    height: 7,
+                    decoration: BoxDecoration(
+                      color: colors[index],
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    labels[index],
+                    style: const TextStyle(
+                      color: Color(0xFFB8CBD8),
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
+              ),
+          ],
+        ),
+      ],
     );
   }
 }
