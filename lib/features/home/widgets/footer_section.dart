@@ -384,7 +384,7 @@ class _FooterTitle extends StatelessWidget {
     return Text(
       text.toUpperCase(),
       style: const TextStyle(
-        color: Color(0xFFFFA4A6),
+        color: AppColors.red,
         fontSize: 18,
         fontWeight: FontWeight.w900,
         letterSpacing: 1.55,
