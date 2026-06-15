@@ -359,33 +359,125 @@ class _ResultCard extends StatelessWidget {
                 ],
               ),
             ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 7),
-            child: Divider(color: Color(0xFF355168), height: 1),
+          const SizedBox(height: 7),
+          _LoanAmountSummary(amount: calculation.loanAmount),
+        ],
+      ),
+    );
+  }
+}
+
+class _LoanAmountSummary extends StatelessWidget {
+  const _LoanAmountSummary({required this.amount});
+
+  final double amount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      container: true,
+      label: 'Estimated loan amount ${formatCurrency(amount)}',
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 17),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFC44245), AppColors.redDark],
           ),
-          Row(
-            children: [
-              const Expanded(
-                child: Text(
-                  'Loan amount',
-                  style: TextStyle(
-                    color: AppColors.red,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFFD96365)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.16),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
+            ),
+            BoxShadow(
+              color: AppColors.red.withValues(alpha: 0.22),
+              blurRadius: 20,
+              spreadRadius: -4,
+            ),
+          ],
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final compact =
+                MediaQuery.sizeOf(context).width < 600 ||
+                constraints.maxWidth < 310;
+            final heading = Row(
+              children: [
+                Container(
+                  width: 46,
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(13),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.22),
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.account_balance_rounded,
+                    color: AppColors.white,
+                    size: 24,
                   ),
                 ),
-              ),
-              Text(
-                formatCurrency(calculation.loanAmount),
-                style: const TextStyle(
-                  color: AppColors.red,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
+                const SizedBox(width: 14),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ESTIMATED LOAN AMOUNT',
+                        style: TextStyle(
+                          color: Color(0xFFFFDCDD),
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.7,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Home price minus down payment',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 12,
+                          height: 1.3,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+              ],
+            );
+            final value = Text(
+              formatCurrency(amount),
+              style: const TextStyle(
+                color: AppColors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+                letterSpacing: -0.5,
               ),
-            ],
-          ),
-        ],
+            );
+
+            if (compact) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [heading, const SizedBox(height: 14), value],
+              );
+            }
+
+            return Row(
+              children: [
+                Expanded(child: heading),
+                const SizedBox(width: 12),
+                value,
+              ],
+            );
+          },
+        ),
       ),
     );
   }
