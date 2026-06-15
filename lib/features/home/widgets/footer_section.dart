@@ -71,10 +71,11 @@ class FooterSection extends StatelessWidget {
                 : Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(flex: 2, child: columns[0]),
+                      Expanded(flex: 3, child: columns[0]),
                       const SizedBox(width: 40),
-                      for (var i = 1; i < columns.length; i++)
-                        Expanded(child: columns[i]),
+                      Expanded(flex: 2, child: columns[1]),
+                      Expanded(flex: 2, child: columns[2]),
+                      Expanded(flex: 3, child: columns[3]),
                     ],
                   ),
           ),
@@ -185,17 +186,72 @@ class _LinkColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _FooterTitle(title),
-        const SizedBox(height: 12),
-        for (final link in links)
-          TextButton(
-            onPressed: link.$2,
-            style: TextButton.styleFrom(
-              foregroundColor: const Color(0xFF9AAEBA),
-              padding: const EdgeInsets.symmetric(vertical: 7),
-            ),
-            child: Text(link.$1),
-          ),
+        const SizedBox(height: 18),
+        for (final link in links) _FooterLink(label: link.$1, onTap: link.$2),
       ],
+    );
+  }
+}
+
+class _FooterLink extends StatefulWidget {
+  const _FooterLink({required this.label, required this.onTap});
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  State<_FooterLink> createState() => _FooterLinkState();
+}
+
+class _FooterLinkState extends State<_FooterLink> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: InkWell(
+        onTap: widget.onTap,
+        borderRadius: BorderRadius.circular(10),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 10),
+          decoration: BoxDecoration(
+            color: _hovered
+                ? Colors.white.withValues(alpha: 0.075)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: _hovered
+                  ? Colors.white.withValues(alpha: 0.12)
+                  : Colors.transparent,
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.arrow_forward_rounded,
+                color: _hovered ? AppColors.red : const Color(0xFFBFD0DC),
+                size: 16,
+              ),
+              const SizedBox(width: 9),
+              Expanded(
+                child: Text(
+                  widget.label,
+                  style: TextStyle(
+                    color: _hovered ? AppColors.white : const Color(0xFFC7D5E0),
+                    fontSize: 15,
+                    height: 1.25,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -209,23 +265,19 @@ class _ConnectColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const _FooterTitle('Connect'),
-        const SizedBox(height: 17),
-        InkWell(
-          onTap: () => sendEmail(AppConstants.email),
-          child: const Text(
-            AppConstants.email,
-            style: TextStyle(color: Color(0xFF9AAEBA), fontSize: 13),
-          ),
-        ),
-        const SizedBox(height: 12),
-        InkWell(
-          onTap: () => callPhone(AppConstants.mobilePhone),
-          child: const Text(
-            AppConstants.mobilePhone,
-            style: TextStyle(color: Color(0xFF9AAEBA), fontSize: 13),
-          ),
-        ),
         const SizedBox(height: 18),
+        _ContactLink(
+          icon: Icons.mail_rounded,
+          label: AppConstants.email,
+          onTap: () => sendEmail(AppConstants.email),
+        ),
+        const SizedBox(height: 10),
+        _ContactLink(
+          icon: Icons.phone_rounded,
+          label: AppConstants.mobilePhone,
+          onTap: () => callPhone(AppConstants.mobilePhone),
+        ),
+        const SizedBox(height: 22),
         Row(
           children: [
             _SocialButton(
@@ -244,6 +296,84 @@ class _ConnectColumn extends StatelessWidget {
   }
 }
 
+class _ContactLink extends StatefulWidget {
+  const _ContactLink({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  State<_ContactLink> createState() => _ContactLinkState();
+}
+
+class _ContactLinkState extends State<_ContactLink> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: InkWell(
+        onTap: widget.onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: _hovered ? 0.09 : 0.045),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: _hovered ? 0.16 : 0.08),
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color(0xFFC74446), AppColors.redDark],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.red.withValues(alpha: 0.24),
+                      blurRadius: 12,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Icon(widget.icon, color: AppColors.white, size: 18),
+              ),
+              const SizedBox(width: 11),
+              Expanded(
+                child: Text(
+                  widget.label,
+                  style: const TextStyle(
+                    color: Color(0xFFD5E1EC),
+                    fontSize: 14,
+                    height: 1.25,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _FooterTitle extends StatelessWidget {
   const _FooterTitle(this.text);
 
@@ -254,10 +384,10 @@ class _FooterTitle extends StatelessWidget {
     return Text(
       text.toUpperCase(),
       style: const TextStyle(
-        color: AppColors.red,
-        fontSize: 12,
-        fontWeight: FontWeight.w800,
-        letterSpacing: 1.2,
+        color: Color(0xFFFFA4A6),
+        fontSize: 18,
+        fontWeight: FontWeight.w900,
+        letterSpacing: 1.55,
       ),
     );
   }
@@ -271,25 +401,54 @@ class _SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(9),
-      child: Container(
-        width: 34,
-        height: 34,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFF355168)),
-          borderRadius: BorderRadius.circular(9),
-        ),
-        child: Text(
-          label,
-          style: const TextStyle(
-            color: AppColors.white,
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
+    return _HoverLift(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(13),
+        child: Container(
+          width: 46,
+          height: 46,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.07),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.16)),
+            borderRadius: BorderRadius.circular(13),
+          ),
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: AppColors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+            ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _HoverLift extends StatefulWidget {
+  const _HoverLift({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_HoverLift> createState() => _HoverLiftState();
+}
+
+class _HoverLiftState extends State<_HoverLift> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        transform: Matrix4.translationValues(0, _hovered ? -3 : 0, 0),
+        child: widget.child,
       ),
     );
   }
