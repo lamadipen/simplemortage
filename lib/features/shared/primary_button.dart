@@ -65,7 +65,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
               borderRadius: BorderRadius.circular(12),
             ),
             textStyle: const TextStyle(
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: FontWeight.w700,
             ),
           ),

@@ -96,7 +96,7 @@ class _TrustItem extends StatelessWidget {
                   style: const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.w700,
-                    fontSize: 13,
+                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(height: 3),
@@ -104,7 +104,7 @@ class _TrustItem extends StatelessWidget {
                   item.$3,
                   style: const TextStyle(
                     color: Color(0xFFADBFCA),
-                    fontSize: 10,
+                    fontSize: 11,
                     height: 1.3,
                   ),
                 ),

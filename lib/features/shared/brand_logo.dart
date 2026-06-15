@@ -13,7 +13,7 @@ class BrandLogo extends StatelessWidget {
       label: 'Simple Mortgage LLC, residential mortgage solutions',
       image: true,
       child: SizedBox(
-        width: compact ? 190 : 226,
+        width: compact ? 182 : 226,
         height: compact ? 44 : 52,
         child: FittedBox(
           fit: BoxFit.scaleDown,
@@ -34,7 +34,7 @@ class BrandLogo extends StatelessWidget {
                     'SIMPLE MORTGAGE LLC',
                     style: TextStyle(
                       color: AppColors.blue,
-                      fontSize: compact ? 13 : 15,
+                      fontSize: compact ? 14 : 16,
                       height: 1,
                       fontWeight: FontWeight.w800,
                       letterSpacing: compact ? 0.35 : 0.5,
@@ -45,7 +45,7 @@ class BrandLogo extends StatelessWidget {
                     'Residential mortgage solutions',
                     style: TextStyle(
                       color: AppColors.red,
-                      fontSize: compact ? 8 : 9,
+                      fontSize: compact ? 9 : 10,
                       height: 1,
                       fontWeight: FontWeight.w600,
                       fontStyle: FontStyle.italic,

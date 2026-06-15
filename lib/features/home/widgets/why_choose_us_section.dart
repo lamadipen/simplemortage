@@ -122,7 +122,7 @@ class _WhyCard extends StatelessWidget {
             item.$2,
             style: const TextStyle(
               color: AppColors.white,
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -131,7 +131,7 @@ class _WhyCard extends StatelessWidget {
             item.$3,
             style: const TextStyle(
               color: Color(0xFFB5C5CF),
-              fontSize: 14,
+              fontSize: 15,
               height: 1.55,
             ),
           ),

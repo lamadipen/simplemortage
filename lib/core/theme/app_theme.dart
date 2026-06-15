@@ -16,6 +16,12 @@ abstract final class AppTheme {
       colorScheme: scheme,
       scaffoldBackgroundColor: AppColors.canvas,
       fontFamily: 'Arial',
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(fontSize: 17, height: 1.55),
+        bodyMedium: TextStyle(fontSize: 16, height: 1.5),
+        bodySmall: TextStyle(fontSize: 13, height: 1.45),
+        labelLarge: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+      ),
       textSelectionTheme: const TextSelectionThemeData(
         cursorColor: AppColors.blue,
         selectionColor: AppColors.blueLight,
@@ -27,8 +33,8 @@ abstract final class AppTheme {
           horizontal: 18,
           vertical: 17,
         ),
-        labelStyle: const TextStyle(color: AppColors.slate),
-        hintStyle: const TextStyle(color: AppColors.muted),
+        labelStyle: const TextStyle(color: AppColors.slate, fontSize: 15),
+        hintStyle: const TextStyle(color: AppColors.muted, fontSize: 15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.line),

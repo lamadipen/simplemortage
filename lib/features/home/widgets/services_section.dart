@@ -138,7 +138,7 @@ class _ServiceCardState extends State<_ServiceCard> {
                     widget.service.$4,
                     style: const TextStyle(
                       color: AppColors.redDark,
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: FontWeight.w700,
                     ),
                   ),

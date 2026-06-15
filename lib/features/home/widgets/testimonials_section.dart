@@ -97,7 +97,7 @@ class _ReviewCard extends StatelessWidget {
             '“${review.$4}”',
             style: const TextStyle(
               color: AppColors.navyDark,
-              fontSize: 16,
+              fontSize: 17,
               height: 1.65,
               fontWeight: FontWeight.w500,
             ),
@@ -138,7 +138,7 @@ class _ReviewCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: AppColors.muted,
-                        fontSize: 12,
+                        fontSize: 13,
                       ),
                     ),
                   ],

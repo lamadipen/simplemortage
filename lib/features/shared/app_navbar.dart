@@ -112,8 +112,8 @@ class _NavLinkState extends State<_NavLink> {
         onPressed: widget.onTap,
         style: TextButton.styleFrom(
           foregroundColor: hovered ? AppColors.blue : AppColors.navy,
-          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 18),
-          textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 18),
+          textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
         ),
         child: Text(widget.label),
       ),

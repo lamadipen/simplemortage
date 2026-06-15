@@ -291,14 +291,14 @@ class _QuickQuoteSectionState extends State<QuickQuoteSection> {
                 'I agree to receive calls and emails regarding my inquiry.',
                 style: TextStyle(
                   color: AppColors.slate,
-                  fontSize: 13,
+                  fontSize: 14,
                   height: 1.4,
                 ),
               ),
               subtitle: _consentError
                   ? const Text(
                       'Consent is required to submit',
-                      style: TextStyle(color: Color(0xFFB3261E), fontSize: 12),
+                      style: TextStyle(color: Color(0xFFB3261E), fontSize: 13),
                     )
                   : null,
             ),
@@ -313,7 +313,7 @@ class _QuickQuoteSectionState extends State<QuickQuoteSection> {
             const Text(
               'No API keys or sensitive credentials are stored in this form.',
               textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.muted, fontSize: 11),
+              style: TextStyle(color: AppColors.muted, fontSize: 12),
             ),
           ],
         ),
@@ -335,7 +335,7 @@ class _QuoteIntro extends StatelessWidget {
         Text(
           'A clearer mortgage starts with a conversation.',
           style: AppTextStyles.sectionTitle.copyWith(
-            fontSize: MediaQuery.sizeOf(context).width < 600 ? 32 : null,
+            fontSize: MediaQuery.sizeOf(context).width < 600 ? 35 : null,
           ),
         ),
         const SizedBox(height: 18),

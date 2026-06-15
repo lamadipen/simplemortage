@@ -119,7 +119,7 @@ class _MortgageCalculatorState extends State<MortgageCalculator> {
           'This calculator is for estimation only and does not represent a loan '
           'approval, rate quote, or commitment to lend.',
           textAlign: TextAlign.center,
-          style: TextStyle(color: AppColors.muted, fontSize: 12, height: 1.5),
+          style: TextStyle(color: AppColors.muted, fontSize: 13, height: 1.5),
         ),
       ],
     );
@@ -305,7 +305,7 @@ class _ResultCard extends StatelessWidget {
                   'Estimated Monthly Payment',
                   style: TextStyle(
                     color: AppColors.white,
-                    fontSize: 14,
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -326,7 +326,7 @@ class _ResultCard extends StatelessWidget {
           const SizedBox(height: 8),
           const Text(
             'per month',
-            style: TextStyle(color: Color(0xFFB8CBD8), fontSize: 13),
+            style: TextStyle(color: Color(0xFFB8CBD8), fontSize: 14),
           ),
           const SizedBox(height: 24),
           _PaymentComposition(calculation: calculation),
@@ -344,7 +344,7 @@ class _ResultCard extends StatelessWidget {
                       row.$1,
                       style: const TextStyle(
                         color: Color(0xFFCFDCE4),
-                        fontSize: 13,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -352,7 +352,7 @@ class _ResultCard extends StatelessWidget {
                     formatCurrency(row.$2),
                     style: const TextStyle(
                       color: AppColors.white,
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -370,7 +370,7 @@ class _ResultCard extends StatelessWidget {
                   'Loan amount',
                   style: TextStyle(
                     color: AppColors.red,
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -379,7 +379,7 @@ class _ResultCard extends StatelessWidget {
                 formatCurrency(calculation.loanAmount),
                 style: const TextStyle(
                   color: AppColors.red,
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -453,7 +453,7 @@ class _PaymentComposition extends StatelessWidget {
                     labels[index],
                     style: const TextStyle(
                       color: Color(0xFFB8CBD8),
-                      fontSize: 10,
+                      fontSize: 11,
                     ),
                   ),
                 ],

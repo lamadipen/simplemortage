@@ -104,7 +104,7 @@ class FooterSection extends StatelessWidget {
                             license,
                             style: const TextStyle(
                               color: Color(0xFF9AAEBA),
-                              fontSize: 10,
+                              fontSize: 11,
                               height: 1.4,
                             ),
                           ),
@@ -116,7 +116,7 @@ class FooterSection extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF9AAEBA),
-                        fontSize: 10,
+                        fontSize: 11,
                         height: 1.55,
                       ),
                     ),
@@ -125,7 +125,7 @@ class FooterSection extends StatelessWidget {
                       '© ${DateTime.now().year} Simple Mortgage LLC. All rights reserved.',
                       style: const TextStyle(
                         color: Color(0xFF718793),
-                        fontSize: 10,
+                        fontSize: 11,
                       ),
                     ),
                   ],
@@ -161,7 +161,7 @@ class _CompanyColumn extends StatelessWidget {
           'and homeowners in Virginia and beyond.',
           style: TextStyle(
             color: Color(0xFF9AAEBA),
-            fontSize: 13,
+            fontSize: 14,
             height: 1.65,
           ),
         ),
@@ -211,7 +211,7 @@ class _ConnectColumn extends StatelessWidget {
           onTap: () => sendEmail(AppConstants.email),
           child: const Text(
             AppConstants.email,
-            style: TextStyle(color: Color(0xFF9AAEBA), fontSize: 12),
+            style: TextStyle(color: Color(0xFF9AAEBA), fontSize: 13),
           ),
         ),
         const SizedBox(height: 12),
@@ -219,7 +219,7 @@ class _ConnectColumn extends StatelessWidget {
           onTap: () => callPhone(AppConstants.mobilePhone),
           child: const Text(
             AppConstants.mobilePhone,
-            style: TextStyle(color: Color(0xFF9AAEBA), fontSize: 12),
+            style: TextStyle(color: Color(0xFF9AAEBA), fontSize: 13),
           ),
         ),
         const SizedBox(height: 18),
@@ -252,7 +252,7 @@ class _FooterTitle extends StatelessWidget {
       text.toUpperCase(),
       style: const TextStyle(
         color: AppColors.red,
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: FontWeight.w800,
         letterSpacing: 1.2,
       ),
@@ -283,7 +283,7 @@ class _SocialButton extends StatelessWidget {
           label,
           style: const TextStyle(
             color: AppColors.white,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: FontWeight.w800,
           ),
         ),

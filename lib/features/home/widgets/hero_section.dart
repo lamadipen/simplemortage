@@ -38,7 +38,7 @@ class HeroSection extends StatelessWidget {
                 'LOCAL GUIDANCE. CLEAR ANSWERS.',
                 style: TextStyle(
                   color: AppColors.red,
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1,
                 ),
@@ -62,7 +62,7 @@ class HeroSection extends StatelessWidget {
         Text(
           'We help homebuyers and homeowners navigate Conventional, FHA, and '
           'VA loans with a simple, prompt, and transparent process.',
-          style: AppTextStyles.body.copyWith(fontSize: mobile ? 17 : 18),
+          style: AppTextStyles.body.copyWith(fontSize: mobile ? 18 : 19),
         ),
         const SizedBox(height: 30),
         Wrap(
@@ -144,7 +144,7 @@ class _TrustBadge extends StatelessWidget {
             label,
             style: const TextStyle(
               color: AppColors.slate,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -256,7 +256,7 @@ class _LoanVisual extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
-                    fontSize: 12,
+                    fontSize: 13,
                   ),
                 ),
               ],
@@ -288,7 +288,7 @@ class _PhotoLabel extends StatelessWidget {
             'YOUR NEXT CHAPTER',
             style: TextStyle(
               color: AppColors.navyDark,
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: FontWeight.w800,
               letterSpacing: 0.8,
             ),
@@ -314,7 +314,7 @@ class _VisualMetric extends StatelessWidget {
             value,
             style: const TextStyle(
               color: AppColors.navy,
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -322,7 +322,7 @@ class _VisualMetric extends StatelessWidget {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.muted, fontSize: 10),
+            style: const TextStyle(color: AppColors.muted, fontSize: 11),
           ),
         ],
       ),

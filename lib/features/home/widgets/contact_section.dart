@@ -201,7 +201,7 @@ class _MapCard extends StatelessWidget {
                           '10304 Eaton Place · Fairfax, VA',
                           style: TextStyle(
                             color: AppColors.muted,
-                            fontSize: 12,
+                            fontSize: 13,
                           ),
                         ),
                       ],

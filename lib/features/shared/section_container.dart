@@ -80,7 +80,7 @@ class SectionHeading extends StatelessWidget {
               title,
               textAlign: textAlign,
               style: AppTextStyles.sectionTitle.copyWith(
-                fontSize: compact ? 34 : null,
+                fontSize: compact ? 36 : null,
                 color: light ? Colors.white : null,
                 height: 1.06,
               ),
