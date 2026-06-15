@@ -125,21 +125,25 @@ class _ServiceCardState extends State<_ServiceCard> {
                   ),
                   child: Icon(widget.service.$1, color: AppColors.blue),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.redLight,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Text(
-                    widget.service.$4,
-                    style: const TextStyle(
-                      color: AppColors.redDark,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
+                const SizedBox(width: 12),
+                Flexible(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.redLight,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Text(
+                      widget.service.$4,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: AppColors.redDark,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),

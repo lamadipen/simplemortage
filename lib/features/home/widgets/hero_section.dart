@@ -23,27 +23,33 @@ class HeroSection extends StatelessWidget {
     final copy = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: AppColors.redLight,
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.verified_rounded, color: AppColors.red, size: 17),
-              SizedBox(width: 7),
-              Text(
-                'LOCAL GUIDANCE. CLEAR ANSWERS.',
-                style: TextStyle(
-                  color: AppColors.red,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: AppColors.redLight,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.verified_rounded, color: AppColors.red, size: 17),
+                SizedBox(width: 7),
+                Flexible(
+                  child: Text(
+                    'LOCAL GUIDANCE. CLEAR ANSWERS.',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: AppColors.red,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 24),
@@ -140,12 +146,15 @@ class _TrustBadge extends StatelessWidget {
         children: [
           Icon(icon, size: 15, color: AppColors.blue),
           const SizedBox(width: 7),
-          Text(
-            label,
-            style: const TextStyle(
-              color: AppColors.slate,
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
+          Flexible(
+            child: Text(
+              label,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: AppColors.slate,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ],

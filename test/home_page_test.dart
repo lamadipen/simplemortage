@@ -21,6 +21,21 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('home page renders without mobile layout exceptions', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(const SimpleMortgageApp());
+    await tester.pumpAndSettle();
+
+    expect(find.text('A process that respects your time'), findsOne);
+    expect(find.text('Speed and Control'), findsOne);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('team route renders the published roster', (tester) async {
     tester.view.physicalSize = const Size(1440, 1000);
     tester.view.devicePixelRatio = 1;
