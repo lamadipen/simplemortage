@@ -11,6 +11,8 @@ abstract final class AppConstants {
   static const canonicalUrl = 'https://www.smortgageloan.com/';
   static const mapUrl =
       'https://www.google.com/maps/search/?api=1&query=10304+Eaton+Place+Suite+100+Fairfax+VA+22030';
+  static const googleMapsEmbedUrl =
+      'https://www.google.com/maps?q=10304%20Eaton%20Place%2C%20Suite%20100%2C%20Fairfax%2C%20VA%2022030&output=embed';
   static const nmlsUrl = 'https://www.nmlsconsumeraccess.org/';
   static const facebookUrl = 'https://www.facebook.com/';
   static const instagramUrl = 'https://www.instagram.com/';

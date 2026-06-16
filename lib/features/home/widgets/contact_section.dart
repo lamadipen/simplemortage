@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_mortgage/core/constants/app_constants.dart';
 import 'package:simple_mortgage/core/theme/app_colors.dart';
+import 'package:simple_mortgage/features/home/widgets/google_map_embed.dart';
 import 'package:simple_mortgage/features/shared/link_utils.dart';
 import 'package:simple_mortgage/features/shared/primary_button.dart';
 import 'package:simple_mortgage/features/shared/section_container.dart';
@@ -144,29 +145,7 @@ class _MapCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          Positioned.fill(child: CustomPaint(painter: _MapPainter())),
-          Center(
-            child: Container(
-              width: 58,
-              height: 58,
-              decoration: BoxDecoration(
-                color: AppColors.navy,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.navy.withValues(alpha: 0.25),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.location_on_rounded,
-                color: AppColors.red,
-                size: 30,
-              ),
-            ),
-          ),
+          const Positioned.fill(child: GoogleMapEmbed()),
           Positioned(
             left: 18,
             right: 18,
@@ -224,40 +203,4 @@ class _MapCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class _MapPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final minor = Paint()
-      ..color = const Color(0xFFC7D8E8)
-      ..strokeWidth = 2;
-    final road = Paint()
-      ..color = Colors.white.withValues(alpha: 0.9)
-      ..strokeWidth = 12
-      ..style = PaintingStyle.stroke;
-    final blocks = Paint()..color = const Color(0xFFDDE9F4);
-
-    for (var x = -30.0; x < size.width; x += 78) {
-      canvas.drawRect(Rect.fromLTWH(x, 0, 50, size.height), blocks);
-      canvas.drawLine(Offset(x + 60, 0), Offset(x + 60, size.height), minor);
-    }
-    for (var y = 42.0; y < size.height; y += 82) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), minor);
-    }
-    final path = Path()
-      ..moveTo(-20, size.height * .25)
-      ..cubicTo(
-        size.width * .3,
-        size.height * .1,
-        size.width * .54,
-        size.height * .72,
-        size.width + 20,
-        size.height * .5,
-      );
-    canvas.drawPath(path, road);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
