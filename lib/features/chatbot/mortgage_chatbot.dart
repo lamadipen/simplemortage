@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:simple_mortgage/core/constants/app_constants.dart';
 import 'package:simple_mortgage/core/theme/app_colors.dart';
 import 'package:simple_mortgage/features/chatbot/mortgage_chatbot_responder.dart';
+import 'package:simple_mortgage/features/shared/link_utils.dart';
 
 class MortgageChatbot extends StatefulWidget {
   const MortgageChatbot({super.key});
@@ -209,6 +211,7 @@ class _ChatPanel extends StatelessWidget {
                   ],
                 ),
               ),
+              const _ChatHandoffActions(),
               _ChatInput(controller: controller, onSend: onSend),
             ],
           ),
@@ -320,6 +323,97 @@ class _MessageBubble extends StatelessWidget {
   }
 }
 
+class _ChatHandoffActions extends StatelessWidget {
+  const _ChatHandoffActions();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 0),
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        border: Border(top: BorderSide(color: AppColors.line)),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppColors.canvas,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppColors.line),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Want a real person to follow up?',
+              style: TextStyle(
+                color: AppColors.navyDark,
+                fontSize: 14,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              'Continue on WhatsApp or call Simple Mortgage LLC directly.',
+              style: TextStyle(color: AppColors.slate, fontSize: 12),
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                FilledButton.icon(
+                  key: const Key('chatbot-whatsapp-button'),
+                  onPressed: () => openLink(AppConstants.whatsappUrl),
+                  icon: const Icon(Icons.chat_rounded, size: 18),
+                  label: const Text('Chat on WhatsApp'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: const Color(0xFF128C7E),
+                    foregroundColor: AppColors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                OutlinedButton.icon(
+                  key: const Key('chatbot-call-button'),
+                  onPressed: () => callPhone(AppConstants.mobilePhone),
+                  icon: const Icon(Icons.phone_rounded, size: 17),
+                  label: const Text('Call Now'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.red,
+                    side: const BorderSide(color: AppColors.red),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 14,
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _ChatInput extends StatelessWidget {
   const _ChatInput({required this.controller, required this.onSend});
 
@@ -338,6 +432,7 @@ class _ChatInput extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              key: const Key('chatbot-question-input'),
               controller: controller,
               textInputAction: TextInputAction.send,
               onSubmitted: (_) => onSend(),

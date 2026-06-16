@@ -3,8 +3,11 @@ abstract final class AppConstants {
   static const email = 'info@smortgageloan.com';
   static const mobilePhone = '202-297-2024';
   static const officePhone = '703-655-9533';
+  static const whatsappPhone = '+12022972024';
   static const address = '10304 Eaton Place, Suite 100, Fairfax, VA 22030';
   static const applyUrl = 'https://prod.lendingpad.com/simple-mortgage-llc/pos';
+  static const whatsappUrl =
+      'https://wa.me/12022972024?text=Hi%20Simple%20Mortgage%20LLC%2C%20I%20have%20a%20mortgage%20question.';
   static const canonicalUrl = 'https://www.smortgageloan.com/';
   static const mapUrl =
       'https://www.google.com/maps/search/?api=1&query=10304+Eaton+Place+Suite+100+Fairfax+VA+22030';
