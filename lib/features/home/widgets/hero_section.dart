@@ -23,36 +23,6 @@ class HeroSection extends StatelessWidget {
     final copy = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: AppColors.redLight,
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.verified_rounded, color: AppColors.red, size: 17),
-                SizedBox(width: 7),
-                Flexible(
-                  child: Text(
-                    'LOCAL GUIDANCE. CLEAR ANSWERS.',
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: AppColors.red,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 24),
         Text(
           'Simple Mortgage Solutions for Your Dream Home',
           style: AppTextStyles.display.copyWith(
@@ -97,7 +67,7 @@ class HeroSection extends StatelessWidget {
             _TrustBadge(icon: Icons.badge_outlined, label: 'NMLS 1951072'),
             _TrustBadge(
               icon: Icons.location_on_outlined,
-              label: 'Serving VA, MD, NC, OH & PA',
+              label: 'Serving VA, MD, NC, OH, PA, DE, GA & CO',
             ),
           ],
         ),
