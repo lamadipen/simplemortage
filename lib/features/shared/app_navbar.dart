@@ -13,7 +13,7 @@ class NavItem {
   final VoidCallback onTap;
 }
 
-class AppNavbar extends StatelessWidget {
+class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
   const AppNavbar({
     required this.items,
     required this.onQuote,
@@ -25,19 +25,37 @@ class AppNavbar extends StatelessWidget {
   final VoidCallback onQuote;
   final VoidCallback onMenu;
 
+  // Scaffold caps the app bar at this height; the bar itself is 72 on
+  // narrower screens and the body starts wherever it actually ends.
+  @override
+  Size get preferredSize => const Size.fromHeight(84);
+
   @override
   Widget build(BuildContext context) {
     final desktop = MediaQuery.sizeOf(context).width > 1320;
     return Material(
-      color: AppColors.white.withValues(alpha: 0.97),
+      color: Colors.transparent,
       elevation: 0,
       child: Container(
         height: desktop ? 84 : 72,
         padding: EdgeInsets.symmetric(
           horizontal: horizontalPagePadding(context),
         ),
-        decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColors.line)),
+        // The fill must live on the decoration: a BoxShadow paints under the
+        // box too, and would tint the bar grey around the white logo.
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          border: const Border(
+            top: BorderSide(color: AppColors.red, width: 3),
+            bottom: BorderSide(color: AppColors.line),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.navyDark.withValues(alpha: 0.10),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
         child: Center(
           child: ConstrainedBox(

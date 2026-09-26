@@ -42,34 +42,28 @@ class _TeamPageState extends State<TeamPage> {
       child: Scaffold(
         key: _scaffoldKey,
         drawer: MobileDrawer(items: _items, onQuote: _goHome),
-        body: Column(
-          children: [
-            AppNavbar(
-              items: _items,
-              onQuote: _goHome,
-              onMenu: () => _scaffoldKey.currentState?.openDrawer(),
-            ),
-            Expanded(
-              child: SelectionArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const _TeamHero(),
-                      _TeamGrid(key: _teamKey),
-                      const _TeamCta(),
-                      FooterSection(
-                        onServices: _goHome,
-                        onCalculator: _goHome,
-                        onReviews: _goHome,
-                        onTeam: () {},
-                        onContact: _goHome,
-                      ),
-                    ],
-                  ),
+        appBar: AppNavbar(
+          items: _items,
+          onQuote: _goHome,
+          onMenu: () => _scaffoldKey.currentState?.openDrawer(),
+        ),
+        body: SelectionArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const _TeamHero(),
+                _TeamGrid(key: _teamKey),
+                const _TeamCta(),
+                FooterSection(
+                  onServices: _goHome,
+                  onCalculator: _goHome,
+                  onReviews: _goHome,
+                  onTeam: () {},
+                  onContact: _goHome,
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
