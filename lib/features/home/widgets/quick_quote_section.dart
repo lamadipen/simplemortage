@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:simple_mortgage/core/constants/app_constants.dart';
 import 'package:simple_mortgage/core/theme/app_colors.dart';
 import 'package:simple_mortgage/core/theme/app_text_styles.dart';
 import 'package:simple_mortgage/features/calculator/mortgage_calculator.dart';
@@ -34,10 +38,50 @@ abstract interface class QuoteSubmissionService {
   Future<void> submit(QuoteRequest request);
 }
 
-class MockQuoteSubmissionService implements QuoteSubmissionService {
+/// Sends quote requests to the Google Apps Script web app in
+/// apps_script/quote_requests.gs, which logs each one to the quote requests
+/// Google Sheet and emails the recipients listed there.
+class AppsScriptQuoteSubmissionService implements QuoteSubmissionService {
+  AppsScriptQuoteSubmissionService({
+    http.Client? client,
+    this.endpoint = AppConstants.quoteRequestWebAppUrl,
+  }) : _client = client ?? http.Client();
+
+  final http.Client _client;
+  final String endpoint;
+
   @override
-  Future<void> submit(QuoteRequest request) =>
-      Future<void>.delayed(const Duration(milliseconds: 650));
+  Future<void> submit(QuoteRequest request) async {
+    if (endpoint.isEmpty) {
+      throw StateError('AppConstants.quoteRequestWebAppUrl is not set');
+    }
+    final response = await _client
+        .post(
+          Uri.parse(endpoint),
+          // text/plain keeps this a "simple" request, so the browser skips the
+          // CORS preflight that Apps Script web apps can't answer.
+          headers: const {'Content-Type': 'text/plain;charset=utf-8'},
+          body: jsonEncode({
+            'firstName': request.firstName,
+            'lastName': request.lastName,
+            'email': request.email,
+            'phone': request.phone,
+            'homePrice': request.homePrice,
+            'downPayment': request.downPayment,
+            'loanAmount': request.loanAmount,
+            'creditRange': request.creditRange,
+            'message': request.message,
+            'consent': true,
+          }),
+        )
+        .timeout(const Duration(seconds: 30));
+    final body = response.statusCode == 200 ? jsonDecode(response.body) : null;
+    if (body is! Map || body['ok'] != true) {
+      throw Exception(
+        'Quote request failed (${response.statusCode}): ${response.body}',
+      );
+    }
+  }
 }
 
 class QuickQuoteSection extends StatefulWidget {
@@ -109,7 +153,25 @@ class _QuickQuoteSectionState extends State<QuickQuoteSection> {
       creditRange: _creditRange!,
       message: _message.text.trim(),
     );
-    await (widget.service ?? MockQuoteSubmissionService()).submit(request);
+    try {
+      await (widget.service ?? AppsScriptQuoteSubmissionService()).submit(
+        request,
+      );
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _submitting = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Sorry, we couldn’t send your request. Please try again or call '
+            '${AppConstants.officePhone}.',
+          ),
+          backgroundColor: AppColors.red,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
     if (!mounted) return;
     setState(() => _submitting = false);
     ScaffoldMessenger.of(context).showSnackBar(

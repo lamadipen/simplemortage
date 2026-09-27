@@ -1,6 +1,9 @@
 abstract final class AppConstants {
   static const companyName = 'Simple Mortgage LLC';
   static const email = 'info@smortgageloan.com';
+  // Web app URL of apps_script/quote_requests.gs (Deploy > Manage deployments).
+  static const quoteRequestWebAppUrl = '
+https://script.google.com/macros/s/AKfycbxvqXEwjapqWbLm_jYHefiJxTuo5JYZjd0_f3Iy1XS1flfSAfkGbbxGMUC6YRbZOqwO/exec';
   static const mobilePhone = '202-297-2024';
   static const officePhone = '703-655-9533';
   static const whatsappPhone = '+12022972024';
@@ -14,8 +17,8 @@ abstract final class AppConstants {
   static const googleMapsEmbedUrl =
       'https://www.google.com/maps?q=10304%20Eaton%20Place%2C%20Suite%20100%2C%20Fairfax%2C%20VA%2022030&output=embed';
   static const nmlsUrl = 'https://www.nmlsconsumeraccess.org/';
-  static const facebookUrl = 'https://www.facebook.com/';
-  static const instagramUrl = 'https://www.instagram.com/';
+  static const facebookUrl = 'https://www.facebook.com/SimpleMortgageFairFax';
+  static const instagramUrl = 'https://www.instagram.com/simplemortgagellc';
 
   static const disclaimer =
       'For information purposes only. This is not a commitment to lend or '
