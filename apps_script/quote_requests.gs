@@ -6,8 +6,10 @@
  * lib/features/home/widgets/quick_quote_section.dart); this script appends it
  * to the Leads tab and emails everyone listed in the Recipients tab.
  *
- * Setup: Extensions > Apps Script, paste this file, run setupSheet() once,
- * then Deploy > New deployment > Web app (Execute as: Me, Access: Anyone).
+ * Setup: Extensions > Apps Script, paste this file, add the reCAPTCHA secret
+ * key as Script Property RECAPTCHA_SECRET (Project Settings), run setupSheet()
+ * once, then Deploy > New deployment > Web app (Execute as: Me, Access:
+ * Anyone). After later edits, run setupSheet() again and deploy a new version.
  */
 
 const LEADS_SHEET = 'Leads';
@@ -15,18 +17,31 @@ const RECIPIENTS_SHEET = 'Recipients';
 const LEAD_HEADERS = [
   'Submitted at', 'First name', 'Last name', 'Email', 'Phone', 'Home price',
   'Down payment', 'Loan amount', 'Credit range', 'Message', 'Email status',
+  'reCAPTCHA score',
+];
+const EMAIL_STATUS_COLUMN = 11;
+// reCAPTCHA v3 scores run from 0.0 (bot) to 1.0 (human). Raise this if junk
+// leads get through; lower it if real visitors are rejected (see the
+// reCAPTCHA score column).
+const RECAPTCHA_MIN_SCORE = 0.5;
+const RECAPTCHA_ACTION = 'quote';
+const ALLOWED_HOSTNAMES = [
+  'smortgageloan.com', 'www.smortgageloan.com',
+  'simplemortage.web.app', 'simplemortage.firebaseapp.com', 'localhost',
 ];
 const CREDIT_RANGES = ['760+', '700-759', '660-699', '620-659', 'Below 620', 'Unsure'];
 
-/** Run once from the editor: creates both tabs and grants mail permission. */
+/**
+ * Run from the editor after pasting a new version: creates both tabs, updates
+ * the Leads header row, and grants mail and URL-fetch permission.
+ */
 function setupSheet() {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const leads = spreadsheet.getSheetByName(LEADS_SHEET) || spreadsheet.insertSheet(LEADS_SHEET);
-  if (leads.getLastRow() === 0) {
-    leads.appendRow(LEAD_HEADERS);
-    leads.setFrozenRows(1);
-    leads.getRange(1, 1, 1, LEAD_HEADERS.length).setFontWeight('bold');
-  }
+  leads.getRange(1, 1, 1, LEAD_HEADERS.length)
+    .setValues([LEAD_HEADERS])
+    .setFontWeight('bold');
+  leads.setFrozenRows(1);
   const recipients =
     spreadsheet.getSheetByName(RECIPIENTS_SHEET) || spreadsheet.insertSheet(RECIPIENTS_SHEET);
   if (recipients.getLastRow() === 0) {
@@ -34,6 +49,9 @@ function setupSheet() {
     recipients.appendRow(['ganesh@smortgageloan.com']);
     recipients.setFrozenRows(1);
     recipients.getRange(1, 1).setFontWeight('bold');
+  }
+  if (!PropertiesService.getScriptProperties().getProperty('RECAPTCHA_SECRET')) {
+    Logger.log('WARNING: Script Property RECAPTCHA_SECRET is not set; all requests will be rejected.');
   }
   Logger.log('Remaining email quota today: ' + MailApp.getRemainingDailyQuota());
 }
@@ -45,6 +63,15 @@ function doPost(e) {
   } catch (error) {
     return jsonResponse({ok: false, error: 'invalid_json'});
   }
+  if (!quote || typeof quote !== 'object') return jsonResponse({ok: false, error: 'invalid_body'});
+
+  // Checked first so bots calling this URL directly never reach the sheet.
+  const recaptcha = verifyRecaptcha(quote.recaptchaToken);
+  if (!recaptcha.ok) {
+    console.warn('reCAPTCHA rejected: ' + recaptcha.reason);
+    return jsonResponse({ok: false, error: 'recaptcha_failed'});
+  }
+
   const problem = validate(quote);
   if (problem) return jsonResponse({ok: false, error: problem});
 
@@ -64,7 +91,7 @@ function doPost(e) {
       new Date(),
       cell(quote.firstName), cell(quote.lastName), cell(quote.email), cell(quote.phone),
       cell('$' + quote.homePrice), cell('$' + quote.downPayment), cell('$' + quote.loanAmount),
-      cell(quote.creditRange), cell(quote.message || ''), 'pending',
+      cell(quote.creditRange), cell(quote.message || ''), 'pending', recaptcha.score,
     ]);
     row = leads.getLastRow();
   } finally {
@@ -72,8 +99,37 @@ function doPost(e) {
   }
 
   // The lead is saved even if the email fails; the status column says why.
-  leads.getRange(row, LEAD_HEADERS.length).setValue(sendLeadEmail(quote));
+  leads.getRange(row, EMAIL_STATUS_COLUMN).setValue(sendLeadEmail(quote));
   return jsonResponse({ok: true});
+}
+
+/** Asks Google whether the form's reCAPTCHA token came from a real visitor. */
+function verifyRecaptcha(token) {
+  if (typeof token !== 'string' || token.length === 0 || token.length > 4000) {
+    return {ok: false, reason: 'missing token'};
+  }
+  const secret = PropertiesService.getScriptProperties().getProperty('RECAPTCHA_SECRET');
+  if (!secret) return {ok: false, reason: 'RECAPTCHA_SECRET not set'};
+  let result;
+  try {
+    const response = UrlFetchApp.fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'post',
+      payload: {secret: secret, response: token},
+      muteHttpExceptions: true,
+    });
+    result = JSON.parse(response.getContentText());
+  } catch (error) {
+    return {ok: false, reason: 'siteverify failed: ' + error.message};
+  }
+  if (!result.success) {
+    return {ok: false, reason: 'invalid token: ' + (result['error-codes'] || []).join(',')};
+  }
+  if (result.action !== RECAPTCHA_ACTION) return {ok: false, reason: 'wrong action: ' + result.action};
+  if (ALLOWED_HOSTNAMES.indexOf(result.hostname) === -1) {
+    return {ok: false, reason: 'wrong hostname: ' + result.hostname};
+  }
+  if (!(result.score >= RECAPTCHA_MIN_SCORE)) return {ok: false, reason: 'low score: ' + result.score};
+  return {ok: true, score: result.score};
 }
 
 function sendLeadEmail(quote) {
@@ -123,7 +179,6 @@ function getRecipients() {
 
 /** Mirrors the form's validation so direct POSTs can't store junk. */
 function validate(q) {
-  if (!q || typeof q !== 'object') return 'invalid_body';
   const text = (v, min, max) => typeof v === 'string' && v.trim().length >= min && v.length <= max;
   if (!text(q.firstName, 1, 100) || !text(q.lastName, 1, 100)) return 'invalid_name';
   if (!text(q.email, 3, 254) || !isEmail(q.email)) return 'invalid_email';

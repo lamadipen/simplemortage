@@ -22,6 +22,7 @@ void main() {
     late http.Request sent;
     final service = AppsScriptQuoteSubmissionService(
       endpoint: 'https://script.google.com/macros/s/test/exec',
+      recaptchaToken: () async => 'token-123',
       client: MockClient((request) async {
         sent = request;
         return http.Response('{"ok":true}', 200);
@@ -43,14 +44,32 @@ void main() {
       'creditRange': '700-759',
       'message': '',
       'consent': true,
+      'recaptchaToken': 'token-123',
     });
+  });
+
+  test('does not send the quote when reCAPTCHA fails', () async {
+    var posted = false;
+    final service = AppsScriptQuoteSubmissionService(
+      endpoint: 'https://script.google.com/macros/s/test/exec',
+      recaptchaToken: () async => throw StateError('script not loaded'),
+      client: MockClient((_) async {
+        posted = true;
+        return http.Response('{"ok":true}', 200);
+      }),
+    );
+
+    await expectLater(service.submit(_request), throwsStateError);
+    expect(posted, isFalse);
   });
 
   test('throws when the web app rejects the request', () async {
     final service = AppsScriptQuoteSubmissionService(
       endpoint: 'https://script.google.com/macros/s/test/exec',
+      recaptchaToken: () async => 'token-123',
       client: MockClient(
-        (_) async => http.Response('{"ok":false,"error":"invalid_email"}', 200),
+        (_) async =>
+            http.Response('{"ok":false,"error":"recaptcha_failed"}', 200),
       ),
     );
 
@@ -58,7 +77,10 @@ void main() {
   });
 
   test('throws when the web app URL is not configured', () async {
-    final service = AppsScriptQuoteSubmissionService(endpoint: '');
+    final service = AppsScriptQuoteSubmissionService(
+      endpoint: '',
+      recaptchaToken: () async => 'token-123',
+    );
 
     expect(service.submit(_request), throwsStateError);
   });

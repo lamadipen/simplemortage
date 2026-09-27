@@ -7,7 +7,9 @@ import 'package:simple_mortgage/core/constants/app_constants.dart';
 import 'package:simple_mortgage/core/theme/app_colors.dart';
 import 'package:simple_mortgage/core/theme/app_text_styles.dart';
 import 'package:simple_mortgage/features/calculator/mortgage_calculator.dart';
+import 'package:simple_mortgage/features/shared/link_utils.dart';
 import 'package:simple_mortgage/features/shared/primary_button.dart';
+import 'package:simple_mortgage/features/shared/recaptcha.dart';
 import 'package:simple_mortgage/features/shared/section_container.dart';
 
 class QuoteRequest {
@@ -44,10 +46,15 @@ abstract interface class QuoteSubmissionService {
 class AppsScriptQuoteSubmissionService implements QuoteSubmissionService {
   AppsScriptQuoteSubmissionService({
     http.Client? client,
+    Future<String> Function()? recaptchaToken,
     this.endpoint = AppConstants.quoteRequestWebAppUrl,
-  }) : _client = client ?? http.Client();
+  }) : _client = client ?? http.Client(),
+       _recaptchaToken =
+           recaptchaToken ??
+           (() => getRecaptchaToken(AppConstants.recaptchaSiteKey, 'quote'));
 
   final http.Client _client;
+  final Future<String> Function() _recaptchaToken;
   final String endpoint;
 
   @override
@@ -55,6 +62,7 @@ class AppsScriptQuoteSubmissionService implements QuoteSubmissionService {
     if (endpoint.isEmpty) {
       throw StateError('AppConstants.quoteRequestWebAppUrl is not set');
     }
+    final token = await _recaptchaToken();
     final response = await _client
         .post(
           Uri.parse(endpoint),
@@ -72,6 +80,7 @@ class AppsScriptQuoteSubmissionService implements QuoteSubmissionService {
             'creditRange': request.creditRange,
             'message': request.message,
             'consent': true,
+            'recaptchaToken': token,
           }),
         )
         .timeout(const Duration(seconds: 30));
@@ -372,14 +381,40 @@ class _QuickQuoteSectionState extends State<QuickQuoteSection> {
               onPressed: _submitting ? () {} : _submit,
             ),
             const SizedBox(height: 12),
-            const Text(
-              'No API keys or sensitive credentials are stored in this form.',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.muted, fontSize: 12),
-            ),
+            const _RecaptchaNotice(),
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Google requires this notice when the reCAPTCHA badge is hidden.
+class _RecaptchaNotice extends StatelessWidget {
+  const _RecaptchaNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    const style = TextStyle(color: AppColors.muted, fontSize: 12, height: 1.5);
+    Widget link(String label, String url) => InkWell(
+      onTap: () => openLink(url),
+      child: Text(
+        label,
+        style: style.copyWith(decoration: TextDecoration.underline),
+      ),
+    );
+    return Wrap(
+      alignment: WrapAlignment.center,
+      children: [
+        const Text(
+          'This site is protected by reCAPTCHA and the Google ',
+          style: style,
+        ),
+        link('Privacy Policy', 'https://policies.google.com/privacy'),
+        const Text(' and ', style: style),
+        link('Terms of Service', 'https://policies.google.com/terms'),
+        const Text(' apply.', style: style),
+      ],
     );
   }
 }
