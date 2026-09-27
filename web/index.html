@@ -46,6 +46,12 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
   <link rel="manifest" href="manifest.json">
+
+  <!-- reCAPTCHA v3 for the quick quote form; key must match
+       AppConstants.recaptchaSiteKey. The badge is hidden because the form
+       shows Google's required notice instead. -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6LcegdItAAAAAP89yTgnQ1WlvzNVJVbpFJXfk8v1" async defer></script>
+  <style>.grecaptcha-badge { visibility: hidden; }</style>
 </head>
 <body>
   <noscript>
